@@ -1,7 +1,5 @@
 from key import key
 import numpy as np
-# import googlemaps
-# import pandas as pd
 import csv
 import requests
 
@@ -37,10 +35,7 @@ def call_maps(addresses,call_string):
         for j in range(len(addresses)):
             times[i,j]=result["rows"][0]["elements"][j]["duration"]["value"]/60
 
-    np.savetxt("travel_times.csv",times, delimiter=",")
-
-    # print(result)
-
+    np.savetxt("travel_times.csv",times,fmt="%3.5f", delimiter=",")
 
 if __name__=="__main__":
 
