@@ -22,12 +22,16 @@ def get_call_string(file_name):
 
     """
 
+    depot='10 Panorama Rd, Mount Wellington, Auckland 1060, New Zealand' # depot location
+    depot=[depot]+['none', 'none', 'none']
     with open(file_name,'r') as f:
         reader=csv.reader(f)
         data=list(reader)[1:]
 
     addresses=[]
     call_string=""
+
+    data=[depot]+data+[depot]
 
     for obs in data:
         address=obs[:-3][0].replace(" ","+") # remove am/pm job duration and week fields
@@ -65,13 +69,14 @@ def call_maps(addresses,call_string,fname="travel_times.csv"):
         result=requests.get(request).json()
 
         for j in range(len(addresses)):
+            
             times[i,j]=result["rows"][0]["elements"][j]["duration"]["value"]/60 # extract durations
 
-    np.savetxt(fname,times,fmt="%3.5f", delimiter=",")
+    np.savetxt(fname,times,fmt="%3.5f", delimiter=" ")
 
 if __name__=="__main__":
 
-    file_name="addresses.csv"
-
-    addresses,call_string=get_call_string(file_name)
+    in_file_name="addresses.csv"
+    out_file_name="space_formatted_addresses"
+    addresses,call_string=get_call_string(in_file_name)
     call_maps(addresses,call_string,fname="out.csv")
