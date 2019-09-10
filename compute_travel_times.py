@@ -77,6 +77,6 @@ def call_maps(addresses,call_string,fname="travel_times.csv"):
 if __name__=="__main__":
 
     in_file_name="addresses.csv"
-    out_file_name="space_formatted_addresses"
+    out_file_name="space_formatted_addresses.txt"
     addresses,call_string=get_call_string(in_file_name)
-    call_maps(addresses,call_string,fname="out.csv")
+    call_maps(addresses,call_string,fname=out_file_name)
